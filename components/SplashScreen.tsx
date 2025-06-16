@@ -3,6 +3,7 @@ import { Icons, AppColors } from '../constants';
 
 // onAnimationEnd was handled by App.tsx's timer for simplicity.
 // This component is purely presentational during that time.
+// useEffect is not needed here.
 const SplashScreen: React.FC = () => {
   return (
     <div className={`flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-${AppColors.primary} to-${AppColors.secondary} text-white`}>

@@ -31,11 +31,9 @@ const DailyDataPage: React.FC = () => {
       if (log) {
         setCurrentLog(log);
       } else {
-        // This case should be handled by App.tsx redirect, but as a fallback:
         navigate(RoutePath.Home);
       }
     } else {
-       // If no activeStreamId, redirect. This indicates an issue with routing or context.
        navigate(RoutePath.Home);
     }
   }, [activeStreamId, getStreamLogById, navigate]);
@@ -61,7 +59,7 @@ const DailyDataPage: React.FC = () => {
       return;
     }
 
-    let activityToAdd: StreamActivityPayload | null = null; // Use StreamActivityPayload
+    let activityToAdd: StreamActivityPayload | null = null;
     const numCount = Number(count);
     const numAmount = Number(amount);
 
@@ -85,7 +83,6 @@ const DailyDataPage: React.FC = () => {
 
     if (activityToAdd) {
       addActivityToLog(currentLog.id, activityToAdd);
-      // The currentLog state will be updated via context changes and re-render.
       resetForm();
     }
   };
@@ -150,7 +147,6 @@ const DailyDataPage: React.FC = () => {
           {activityType === 'donation' && (
             <Input label="Amount (USD)" type="number" min="0.01" step="0.01" value={amount} onChange={(e) => {setAmount(e.target.value); handleInputChange();}} />
           )}
-          {/* Prime sub doesn't need more fields beyond username */}
         </div>
         {formError && <p className="mt-3 text-sm text-red-500">{formError}</p>}
         <Button onClick={handleAddActivity} className="mt-6 w-full md:w-auto" leftIcon={<Icons.PlusCircle className="w-5 h-5"/>}>

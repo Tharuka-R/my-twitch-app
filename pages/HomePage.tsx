@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useData } from '../contexts/DataContext';
 import { Button, Input, Card, PageTitle } from '../components/common/UIElements';
-import { Icons, AppColors, RoutePath } from '../constants';
+import { Icons, AppColors, RoutePath } from '../constants'; // createStreamId is not imported here
 import type { DailyStreamLog, InitialStreamInfo } from '../types';
 import { isValidDate } from '../utils/analyticsHelpers';
 
@@ -39,7 +39,7 @@ const HomePage: React.FC = () => {
     if (!validateInputs()) return;
 
     const streamId = createOrUpdateStreamLogHeader({ streamerName, date, streamTitle });
-    setActiveStreamId(streamId); // Set active stream ID before navigation
+    setActiveStreamId(streamId); 
     navigate(RoutePath.DailyData.replace(':streamId', streamId));
   };
 

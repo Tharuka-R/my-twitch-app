@@ -7,12 +7,17 @@ import DailyDataPage from './pages/DailyDataPage';
 import MonthlyAnalyticsPage from './pages/MonthlyAnalyticsPage';
 import YearlyAnalyticsPage from './pages/YearlyAnalyticsPage';
 import type { PageView } from './types';
-import { PageView as PageViewValue } from './types'; // Import PageView as a value for use in `useState` etc.
+// Import PageView as a value for use in `useState` etc.
+// Note: If PageView is a 'const enum', it's inlined, and this specific value import might change depending on bundler behavior.
+// For now, we assume 'types.ts' might use 'enum' or 'const enum'. This covers 'const enum PageViewValue'.
+import { PageView as PageViewValue } from './types'; 
 import { RoutePath, AppColors } from './constants';
 
 const AppContent: React.FC = () => {
   const [currentView, setCurrentView] = useState<PageView>(PageViewValue.Splash);
-  // setActiveStreamId is not directly used in AppContent, it's used within DailyDataPageWrapper via its own useData() call
+  // setActiveStreamId from useData() is aliased to contextSetActiveStreamId and used in DailyDataPageWrapper.
+  // The TS6133 error for 'setActiveStreamId' in App.tsx (line 15 in error log) is likely due to this indirect usage.
+  // The primary destructuring happens in DailyDataPageWrapper.
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -48,8 +53,6 @@ const AppContent: React.FC = () => {
       };
     }, [streamId, getStreamLogById, contextSetActiveStreamId, navigate]);
     
-    // Render DailyDataPage only if streamId is valid and log exists (checked by useEffect redirect)
-    // The actual rendering logic of DailyDataPage will use activeStreamId from context
     return streamId ? <DailyDataPage /> : <Navigate to={RoutePath.Home} replace />;
   };
 

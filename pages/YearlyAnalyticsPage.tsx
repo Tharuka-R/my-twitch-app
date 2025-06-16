@@ -23,7 +23,7 @@ const YearlyAnalyticsPage: React.FC = () => {
     if (availableYears.length > 0 && !availableYears.includes(selectedYear)) {
         setSelectedYear(availableYears[0]);
     } else if (availableYears.length === 0 && selectedYear !== new Date().getFullYear()){
-         setSelectedYear(new Date().getFullYear()); // Default to current year if no data years
+         setSelectedYear(new Date().getFullYear()); 
     }
   }, [availableYears, selectedYear]);
 

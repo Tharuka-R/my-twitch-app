@@ -1,9 +1,7 @@
 import { jsPDF } from 'jspdf';
-import autoTable from 'jspdf-autotable'; // Import autoTable as a function
+import autoTable from 'jspdf-autotable';
 import type { DailyStreamLog, AggregatedSummary } from '../types';
 import { SubTier } from '../types'; // SubTier is an enum, used as a value
-
-// The declare module 'jspdf' is no longer needed if we call autoTable directly.
 
 const formatCurrency = (amount: number) => {
   return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount);
@@ -55,12 +53,12 @@ export const generateDailyReportPDF = (log: DailyStreamLog): void => {
       tableRows.push([time, type, activity.username, details, amountCount]);
   });
 
-  autoTable(doc, { // Call autoTable as a function
+  autoTable(doc, { 
     startY: 50,
     head: [tableColumn],
     body: tableRows,
     theme: 'striped',
-    headStyles: { fillColor: [62, 28, 108] }, // Purple
+    headStyles: { fillColor: [62, 28, 108] }, 
   });
   
   doc.save(`daily_report_${log.streamerName}_${log.date}.pdf`);
@@ -94,16 +92,15 @@ export const generateAggregatedReportPDF = (summary: AggregatedSummary, reportTi
     ['Donations (USD)', '-', '-', '-', formatCurrency(summary.donations)],
   ];
 
-  autoTable(doc, { // Call autoTable as a function
+  autoTable(doc, { 
     startY: 40,
     head: [summaryData[0]],
     body: summaryData.slice(1),
     theme: 'grid',
-    headStyles: { fillColor: [62, 28, 108] }, // Purple
+    headStyles: { fillColor: [62, 28, 108] }, 
   });
 
-  // Get final Y position after the first table
-  let finalY = (doc as any).lastAutoTable.finalY || 40; // Fallback if lastAutoTable is not set
+  let finalY = (doc as any).lastAutoTable.finalY || 40; 
 
   const chartSectionY = finalY + 15;
   doc.setFontSize(14);
@@ -118,19 +115,19 @@ export const generateAggregatedReportPDF = (summary: AggregatedSummary, reportTi
       let chartTableHead: string[] = [];
       let chartTableBody: any[][] = [];
 
-      if (summary.chartData[0]?.totalSubs !== undefined) { // Yearly summary type chart data
+      if (summary.chartData[0]?.totalSubs !== undefined) { 
         chartTableHead = ["Month", "Total Subs", "Total Gift Subs", "Total Donations (USD)"];
         chartTableBody = summary.chartData.map(d => [d.name, d.totalSubs, d.totalGiftSubs, formatCurrency(d.totalDonations)]);
-      } else if (summary.chartData[0]?.subs !== undefined) { // Monthly summary type chart data
+      } else if (summary.chartData[0]?.subs !== undefined) { 
         chartTableHead = ["Category", "Subscriptions", "Gifted Subs"];
          chartTableBody = summary.chartData.map(d => {
-            if (d.name === 'Donations Value') return [d.name, formatCurrency(d.subs), '-']; // Special handling for donation value
+            if (d.name === 'Donations Value') return [d.name, formatCurrency(d.subs), '-']; 
             return [d.name, d.subs, d.giftSubs];
         });
       }
 
       if(chartTableHead.length > 0) {
-        autoTable(doc, { // Call autoTable as a function
+        autoTable(doc, { 
             startY: 30,
             head: [chartTableHead],
             body: chartTableBody,
@@ -143,7 +140,6 @@ export const generateAggregatedReportPDF = (summary: AggregatedSummary, reportTi
   doc.save(`${reportTitle.toLowerCase().replace(/\s+/g, '_')}_${summary.period}.pdf`);
 };
 
-// Example chart data preparation (can be expanded)
 export const prepareSubsChartData = (summary: AggregatedSummary) => {
   return [
     { name: SubTier.Tier1, value: summary.subs[SubTier.Tier1] },
@@ -163,9 +159,9 @@ export const prepareGiftSubsChartData = (summary: AggregatedSummary) => {
 
 export const isValidDate = (dateString: string): boolean => {
   const regEx = /^\d{4}-\d{2}-\d{2}$/;
-  if (!dateString.match(regEx)) return false; // Invalid format
+  if (!dateString.match(regEx)) return false; 
   const d = new Date(dateString);
   const dNum = d.getTime();
-  if (!dNum && dNum !== 0) return false; // NaN value, Invalid date
+  if (!dNum && dNum !== 0) return false; 
   return d.toISOString().slice(0, 10) === dateString;
 };

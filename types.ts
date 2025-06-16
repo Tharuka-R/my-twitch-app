@@ -1,4 +1,5 @@
-export enum PageView {
+
+export const enum PageView {
   Splash = 'SPLASH',
   Home = 'HOME',
   DailyData = 'DAILY_DATA',

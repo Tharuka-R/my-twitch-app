@@ -27,18 +27,22 @@ function useLocalStorage<T,>(key: string, initialValue: T): [T, Dispatch<SetStat
   };
   
   useEffect(() => {
-    // This effect can be used to listen to storage events from other tabs/windows if needed.
-    // For now, it's primarily to ensure the initial state from localStorage is correctly set.
-    // The logic is already in useState initializer, but this hook pattern is common.
-    // Re-fetch from localStorage if key changes, though not typical for this hook.
     try {
         const item = window.localStorage.getItem(key);
         if (item) {
-            setStoredValue(JSON.parse(item));
+            const parsedItem = JSON.parse(item);
+            // Basic check to prevent setting storedValue if it hasn't actually changed
+            // This can prevent unnecessary re-renders if the value from localStorage is deep equal
+            // For simplicity, a direct set is often fine, but this is a small optimization
+            if (JSON.stringify(storedValue) !== JSON.stringify(parsedItem)) {
+                 setStoredValue(parsedItem);
+            }
         }
     } catch (error) {
         console.error(`Error re-reading localStorage key "${key}" in useEffect:`, error);
     }
+  // Only re-run if key changes, or if you want to sync with external changes (more complex)
+  // Adding storedValue here would create a loop if not careful.
   }, [key]);
 
 

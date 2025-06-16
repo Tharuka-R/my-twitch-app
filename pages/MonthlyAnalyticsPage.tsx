@@ -29,15 +29,13 @@ const MonthlyAnalyticsPage: React.FC = () => {
   }, [availableYears, selectedYear]);
 
   useEffect(() => {
-    // Ensure selectedMonth is valid for the selectedYear
     const currentYearMonths = getAvailableMonths(selectedYear);
     if (currentYearMonths.length > 0) {
         if (!currentYearMonths.find(m => m.month === selectedMonth)) {
             setSelectedMonth(currentYearMonths[0].month);
         }
     } else {
-        // If no months available for selected year, clear summary
-        setSelectedMonth(-1); // Or some indicator for no valid month
+        setSelectedMonth(-1); 
     }
   }, [selectedYear, selectedMonth, getAvailableMonths]);
 
@@ -128,7 +126,7 @@ const MonthlyAnalyticsPage: React.FC = () => {
                     <PieChart>
                         <Pie
                             data={[
-                                { name: 'Tier 1 Subs', value: summary.subs[SubTier.Tier1] * 5 }, // Example values
+                                { name: 'Tier 1 Subs', value: summary.subs[SubTier.Tier1] * 5 }, 
                                 { name: 'Tier 2 Subs', value: summary.subs[SubTier.Tier2] * 10 },
                                 { name: 'Tier 3 Subs', value: summary.subs[SubTier.Tier3] * 25 },
                                 { name: 'Donations', value: summary.donations },
@@ -141,7 +139,7 @@ const MonthlyAnalyticsPage: React.FC = () => {
                             dataKey="value"
                             label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
                         >
-                            {CHART_COLORS.map((color, index) => (
+                            {CHART_COLORS.map((color, index) => ( // Using 'color' here
                                 <Cell key={`cell-${index}`} fill={color} />
                             ))}
                         </Pie>
