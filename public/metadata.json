@@ -1,0 +1,5 @@
+{
+  "name": "Twitch Analytics App",
+  "description": "A web application for manually tracking and analyzing Twitch streamer statistics including subs, donations, and gift subs, with daily, monthly, and yearly reports.",
+  "requestFramePermissions": []
+}
