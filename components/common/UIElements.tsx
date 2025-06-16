@@ -1,5 +1,4 @@
-
-import React, { ReactNode } from 'react';
+import React, { type ReactNode } from 'react';
 import { AppColors, Icons } from '../../constants';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {

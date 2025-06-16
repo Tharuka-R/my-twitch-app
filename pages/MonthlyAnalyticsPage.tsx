@@ -1,8 +1,8 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useData } from '../contexts/DataContext';
-import { AggregatedSummary, SubTier } from '../types';
+import type { AggregatedSummary } from '../types';
+import { SubTier } from '../types'; // SubTier is an enum, used as a value
 import { Button, Select, Card, PageTitle } from '../components/common/UIElements';
 import { Icons, AppColors, RoutePath } from '../constants';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
@@ -141,8 +141,8 @@ const MonthlyAnalyticsPage: React.FC = () => {
                             dataKey="value"
                             label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
                         >
-                            {CHART_COLORS.map((entry, index) => (
-                                <Cell key={`cell-${index}`} fill={CHART_COLORS[index % CHART_COLORS.length]} />
+                            {CHART_COLORS.map((color, index) => (
+                                <Cell key={`cell-${index}`} fill={color} />
                             ))}
                         </Pie>
                         <Tooltip  contentStyle={{ backgroundColor: AppColors.cardBackground, border: `1px solid ${AppColors.border}`}} />

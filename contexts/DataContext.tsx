@@ -1,7 +1,7 @@
-
-import React, { createContext, useContext, useState, ReactNode, useCallback, useEffect } from 'react';
+import React, { createContext, useContext, useState, useCallback, useEffect, type ReactNode } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { DailyStreamLog, StreamActivity, DataContextType, SubTier, AggregatedSummary, StreamActivityPayload } from '../types';
+import type { DailyStreamLog, StreamActivity, DataContextType, AggregatedSummary, StreamActivityPayload } from '../types';
+import { SubTier } from '../types'; // SubTier is an enum, used as a value
 import { LOCAL_STORAGE_KEY_STREAM_LOGS, createStreamId } from '../constants';
 import useLocalStorage from '../hooks/useLocalStorage';
 

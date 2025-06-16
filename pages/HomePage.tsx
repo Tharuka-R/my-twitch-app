@@ -1,10 +1,9 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useData } from '../contexts/DataContext';
 import { Button, Input, Card, PageTitle } from '../components/common/UIElements';
-import { Icons, AppColors, RoutePath, createStreamId } from '../constants';
-import { DailyStreamLog, InitialStreamInfo } from '../types';
+import { Icons, AppColors, RoutePath } from '../constants';
+import type { DailyStreamLog, InitialStreamInfo } from '../types';
 import { isValidDate } from '../utils/analyticsHelpers';
 
 

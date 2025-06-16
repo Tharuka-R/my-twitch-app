@@ -1,8 +1,8 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useData } from '../contexts/DataContext';
-import { AggregatedSummary, SubTier } from '../types';
+import type { AggregatedSummary } from '../types';
+import { SubTier } from '../types'; // SubTier is an enum, used as a value
 import { Button, Select, Card, PageTitle } from '../components/common/UIElements';
 import { Icons, AppColors, RoutePath } from '../constants';
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';

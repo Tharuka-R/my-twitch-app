@@ -1,8 +1,8 @@
-
 import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate }  from 'react-router-dom';
 import { useData } from '../contexts/DataContext';
-import { DailyStreamLog, StreamActivity, SubTier, StreamActivityPayload } from '../types';
+import type { DailyStreamLog, StreamActivityPayload } from '../types';
+import { SubTier } from '../types'; // SubTier is an enum, used as a value
 import { Button, Input, Select, Card, Modal, PageTitle } from '../components/common/UIElements';
 import { Icons, AppColors, RoutePath } from '../constants';
 import { generateDailyReportPDF } from '../utils/analyticsHelpers';

@@ -1,14 +1,9 @@
-
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Icons, AppColors } from '../constants';
 
-interface SplashScreenProps {
-  onAnimationEnd: () => void;
-}
-
-const SplashScreen: React.FC<SplashScreenProps> = ({ onAnimationEnd }) => {
-  // onAnimationEnd is now handled by App.tsx's timer for simplicity.
-  // This component is purely presentational during that time.
+// onAnimationEnd was handled by App.tsx's timer for simplicity.
+// This component is purely presentational during that time.
+const SplashScreen: React.FC = () => {
   return (
     <div className={`flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-${AppColors.primary} to-${AppColors.secondary} text-white`}>
       <div className="animate-bounce"> {/* Simple animation */}

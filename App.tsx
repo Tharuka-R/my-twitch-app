@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { HashRouter, Routes, Route, Navigate, useParams, useNavigate } from 'react-router-dom';
 import { DataProvider, useData } from './contexts/DataContext';
@@ -7,22 +6,23 @@ import HomePage from './pages/HomePage';
 import DailyDataPage from './pages/DailyDataPage';
 import MonthlyAnalyticsPage from './pages/MonthlyAnalyticsPage';
 import YearlyAnalyticsPage from './pages/YearlyAnalyticsPage';
-import { PageView } from './types';
-import { RoutePath, Icons, AppColors } from './constants';
+import type { PageView } from './types';
+import { PageView as PageViewValue } from './types'; // Import PageView as a value for use in `useState` etc.
+import { RoutePath, AppColors } from './constants';
 
 const AppContent: React.FC = () => {
-  const [currentView, setCurrentView] = useState<PageView>(PageView.Splash);
-  const { setActiveStreamId } = useData(); // ensure useData is called within DataProvider scope
+  const [currentView, setCurrentView] = useState<PageView>(PageViewValue.Splash);
+  // setActiveStreamId is not directly used in AppContent, it's used within DailyDataPageWrapper via its own useData() call
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setCurrentView(PageView.Home);
+      setCurrentView(PageViewValue.Home);
     }, 2000); // Splash screen duration
     return () => clearTimeout(timer);
   }, []);
 
-  if (currentView === PageView.Splash) {
-    return <SplashScreen onAnimationEnd={() => setCurrentView(PageView.Home)} />;
+  if (currentView === PageViewValue.Splash) {
+    return <SplashScreen />;
   }
   
   // Wrapper to handle streamId param for DailyDataPage

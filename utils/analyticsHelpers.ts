@@ -1,7 +1,7 @@
-
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable'; // Import autoTable as a function
-import { DailyStreamLog, StreamActivity, SubTier, AggregatedSummary } from '../types';
+import type { DailyStreamLog, AggregatedSummary } from '../types';
+import { SubTier } from '../types'; // SubTier is an enum, used as a value
 
 // The declare module 'jspdf' is no longer needed if we call autoTable directly.
 
